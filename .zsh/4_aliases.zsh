@@ -10,4 +10,4 @@ alias lt='ls --tree'
 alias zed='nvim ~/.zshrc'
 alias n="nvim"
 alias cat="bat"
-alias dotfiles='/usr/bin/git --git-dir=/Users/nicolas.deory/.dotfiles/ --work-tree=/Users/nicolas.deory'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
