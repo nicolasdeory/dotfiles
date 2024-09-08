@@ -6,6 +6,8 @@ alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 
+alias gs='git status'
+
 # Aliases
 alias zed='nvim ~/.zshrc'
 alias n="nvim"
