@@ -1,0 +1,6 @@
+For key repeating
+```
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
+defaults write "$(osascript -e 'id of app "Cursor"')" ApplePressAndHoldEnabled -bool false # Cursor
+defaults delete -g ApplePressAndHoldEnabled
+```
