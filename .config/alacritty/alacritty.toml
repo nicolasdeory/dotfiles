@@ -1,4 +1,3 @@
-import = [ "~/.config/alacritty/tokyo-night.toml", ]
 
 [env]
 TERM = "xterm-256color"
@@ -18,7 +17,8 @@ option_as_alt = "Both"
 normal.family = "CaskaydiaMono Nerd Font"
 size = 16
 [font.offset]
-x=0
-y=1
+x = 0
+y = 1
 
-
+[general]
+import = ["~/.config/alacritty/tokyo-night.toml"]
