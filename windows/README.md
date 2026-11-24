@@ -33,7 +33,7 @@ Keyboard: Keychron in **Windows** mode. The bottom-left row maps like a Mac:
 | Cmd + C / V / X / Z / A / S / T / W / F / L / N … | Copy, paste, etc. (sent as Ctrl) |
 | Cmd + Tab (Shift = back) | App switcher, stays open while Cmd is held |
 | Cmd + Space | Raycast (press again to close) |
-| Cmd + Q | Quit (Alt+F4) |
+| Cmd + Q | Quit (Alt+F4). Does nothing in games (Steam/Epic/etc. folders, or any full-screen app except browsers) |
 | Cmd + M / H | Minimize |
 | Cmd + ` | Next window of the same app |
 | Cmd + ← / → (+Shift) | Start / end of line |

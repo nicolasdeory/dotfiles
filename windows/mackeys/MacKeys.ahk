@@ -199,7 +199,7 @@ CmdTab() {
 #HotIf Mods(1, 0, 0) && !cmdTabbing
 *Tab::CmdTab()
 *Space::ToggleRaycast()    ; Spotlight -> Raycast
-*q::Send "!{F4}"           ; quit
+*q::QuitApp()              ; quit (does nothing in games)
 *m::WinMinimize "A"
 *h::WinMinimize "A"
 *`::CycleAppWindows()      ; next window of the same app
@@ -335,6 +335,38 @@ WinSend(keys) {
     Send "{RWin down}" keys "{RWin up}"
 }
 
+; Cmd+Q -> Alt+F4, except in games, where one slip would close the game.
+QuitApp() {
+    if IsGame() {
+        try Log("Cmd+Q ignored in game: " WinGetProcessName("A"))
+        return
+    }
+    Send "!{F4}"
+}
+
+; A "game" is anything run from a game library folder, or any app other than
+; a browser / File Explorer that fills the whole screen.
+IsGame() {
+    try path := WinGetProcessPath("A")
+    catch
+        return false
+    if path ~= "i)\\(steamapps\\common|Epic Games|Riot Games|XboxGames|Battle\.net|EA Games|Ubisoft Game Launcher\\games|GOG Galaxy\\Games)\\"
+        return true
+    SplitPath path, &exe
+    if exe ~= "i)^(chrome|msedge|firefox|brave|arc|opera|explorer)\.exe$"
+        return false
+    hwnd := WinExist("A")
+    if IsShell(hwnd) || WinGetMinMax(hwnd) = 1   ; maximized apps aren't games
+        return false
+    WinGetPos &x, &y, &w, &h, hwnd
+    hMon := DllCall("MonitorFromWindow", "ptr", hwnd, "uint", 2, "ptr")
+    mi := Buffer(40, 0)
+    NumPut("uint", 40, mi)
+    DllCall("GetMonitorInfo", "ptr", hMon, "ptr", mi)
+    return x <= NumGet(mi, 4, "int") && y <= NumGet(mi, 8, "int")
+        && x + w >= NumGet(mi, 12, "int") && y + h >= NumGet(mi, 16, "int")
+}
+
 ; Fast path: press Raycast's own hotkey, Ctrl+Shift+Space (set that in
 ; Raycast Settings > General > Raycast Hotkey). Sent with RIGHT-side modifiers
 ; so Willow Voice never sees it.
@@ -382,7 +414,7 @@ SwitchLayout() {
 }
 
 ; Test hook: lets a helper script trigger these without physical keys
-OnMessage(0x8001, (wp, *) => (wp = 1 ? ToggleRaycast() : SwitchLayout(), 0))
+OnMessage(0x8001, (wp, *) => (wp = 1 ? ToggleRaycast() : wp = 3 ? Log("IsGame(" WinGetProcessName("A") ") = " IsGame()) : SwitchLayout(), 0))
 
 CycleAppWindows() {
     try exe := WinGetProcessName("A")

@@ -30,5 +30,8 @@ A running list. Add a line whenever a shortcut or habit sticks, or a gotcha bite
   Raycast repeatedly; now it's "hold Esc 3 s".
 - **Sleep stopped the script**, and a Startup-folder shortcut didn't always relaunch it. A
   scheduled task (at login + every minute, ignore if already running) keeps it alive.
+- **Cmd+Q in games is a trap**: Cmd is the Alt key, so Cmd+Q is Alt+F4 and closed
+  Fortnite mid-game. Cmd+Q now does nothing in apps from game library folders or any
+  full-screen app (browsers excepted). Add a folder to `IsGame()` if a game slips through.
 - Starting the script from inside another app (e.g. a terminal Claude runs) ties it to that
   app's lifetime. Start it through the task or Explorer.
